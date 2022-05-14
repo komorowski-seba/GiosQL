@@ -1,0 +1,21 @@
+﻿POST https://localhost:7207/graphql
+Content-Type: application/graphql
+
+{
+  stations {
+    identifier,
+    cityName
+  }
+}
+
+###
+
+POST https://localhost:7207/graphql
+Content-Type: application/graphql
+
+{
+   station(id: "208") {
+     identifier,
+     cityName
+   }
+}

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Hangfire</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Hangfire" Version="1.7.19" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
+        <PackageReference Include="Hangfire.Autofac.Core" Version="1.0.1" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+        <PackageReference Include="Hangfire.Dashboard.Authorization" Version="1.7.19" />
+        <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HandlersHangfireApp\HandlersHangfireApp.csproj" />
+      <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+    
+</Project>
