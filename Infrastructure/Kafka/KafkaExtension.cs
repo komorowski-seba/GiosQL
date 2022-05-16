@@ -25,6 +25,7 @@ public static class KafkaExtensions
     {
         services.AddConsumerConfig(configuration);
         services.AddHostedService<KafkaExternalEventConsumerService<NewStationExtEvent>>();
+        services.AddHostedService<KafkaExternalEventConsumerService<StationStatusExtEvent>>();
         return services;
     }
 

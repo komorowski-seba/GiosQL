@@ -34,7 +34,7 @@ public class NewStationEventHandler : INotificationHandler<NewStationExtEvent>
         else
         {
             find
-                .SetAddressStreet(notification.NewStation.AddressStreet)
+                .SetAddressStreet(notification.NewStation?.AddressStreet ?? string.Empty)
                 .SetCityName(notification.NewStation.City?.Name ?? string.Empty)
                 .SetDistrictName(notification.NewStation.City?.Commune?.DistrictName ?? string.Empty)
                 .SetGegrLat(notification.NewStation.GegrLat)
