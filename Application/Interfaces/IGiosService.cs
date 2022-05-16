@@ -1,11 +1,9 @@
 ﻿using Application.Models.GiosStation;
 
-namespace Application.Interfaces
+namespace Application.Interfaces;
+
+public interface IGiosService
 {
-    public interface IGiosService
-    {
-        Task<IList<Station>?> GetAllStations();
-        // IList<ProvinceDto> MapToProvinces(IList<Station> stations);
-        // Task<IndexAirQuality> GetStationAirQuality(long stationId, string provinceName, string cityName);
-    }
+    Task<IList<Station>?> GetAllStations();
+    Task<IndexAirQuality?> GetStationAirQuality(long stationId);
 }

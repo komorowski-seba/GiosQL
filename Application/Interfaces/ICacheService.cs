@@ -5,6 +5,6 @@ namespace Application.Interfaces;
 
 public interface ICacheService
 {
-    Task CacheStations(IEnumerable<Station> stations);
-    Task<List<StationCache>> GetAllStations();
+    Task CacheStations(IEnumerable<Station> stations, CancellationToken cancellationToken);
+    Task<List<StationCache>> GetAllStations(CancellationToken cancellationToken);
 }

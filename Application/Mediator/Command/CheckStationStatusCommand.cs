@@ -2,6 +2,6 @@
 
 namespace Application.Mediator.Command;
 
-public class NewStationCommand : INotification
+public class CheckStationStatusCommand : INotification
 {
 }

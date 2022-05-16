@@ -1,7 +1,7 @@
 ﻿using Application.Models.GiosStation;
 using MediatR;
 
-namespace Application.Mediator;
+namespace Application.Mediator.Command;
 
 public class AddStationCommand : INotification
 {

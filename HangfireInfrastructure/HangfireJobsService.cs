@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces;
-using Application.Mediator;
+using Application.Mediator.Command;
 using Hangfire;
 using MediatR;
 
@@ -17,12 +17,12 @@ public class HangfireJobsService : IHangfireJobsService
     [JobDisplayName("AllStationsJob_{0}"), AutomaticRetry(Attempts = 0)]
     public void AllStationJob()
     {
-        _mediator.Publish(new NewStationCommand()).Wait();
+        // _mediator.Publish(new NewStationCommand()).Wait();
     }
 
     [JobDisplayName("AllStationsStatus_{0}"), AutomaticRetry(Attempts = 0)]
     public void AllStationsStatusJob()
     {
-        // _stationsService.CheckAllStations().Wait();
+        // _mediator.Publish(new CheckStationStatusCommand()).Wait();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Application.ExternalEvents;
 using Application.Interfaces;
-using Application.Mediator;
+using Application.Mediator.Command;
 using MediatR;
 
 namespace HandlersHangfireApp.Mediator;
@@ -27,7 +27,7 @@ public class NewStationHandler : INotificationHandler<NewStationCommand>
         if (allStations is null)
             return;
 
-        await _cacheService.CacheStations(allStations);
+        await _cacheService.CacheStations(allStations, cancellationToken);
         foreach (var station in allStations)
         {
             await _externalEventService.Publish(new NewStationExtEvent {NewStation = station});

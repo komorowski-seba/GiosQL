@@ -1,8 +1,6 @@
-﻿using Application.Mediator;
-using Application.Models.GiosStation;
+﻿using Application.Mediator.Command;
 using Domain.Common.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace HandlersQlApp.Mediator;
 

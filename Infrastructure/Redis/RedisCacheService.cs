@@ -18,10 +18,10 @@ public class RedisCacheService : ICacheService
         _distributedCache = distributedCache;
     }
 
-    public async Task CacheStations(IEnumerable<Station> stations)
+    public async Task CacheStations(IEnumerable<Station> stations, CancellationToken cancellationToken)
     {
         var stationsCase = stations.Select(n => n.ToStationCache()).ToList();
-        var allStationCase = await GetAllStations();
+        var allStationCase = await GetAllStations(cancellationToken);
         var difference = stationsCase.Except(allStationCase).ToList();
         
         if (difference.Any())
@@ -32,9 +32,9 @@ public class RedisCacheService : ICacheService
         await _distributedCache.SetAsync(VariableKey, stationToByte);
     }
 
-    public async Task<List<StationCache>> GetAllStations()
+    public async Task<List<StationCache>> GetAllStations(CancellationToken cancellationToken)
     {
-        var stationsToByte = await _distributedCache.GetAsync(VariableKey);
+        var stationsToByte = await _distributedCache.GetAsync(VariableKey, cancellationToken);
         if (stationsToByte is null)
             return new List<StationCache>();
 

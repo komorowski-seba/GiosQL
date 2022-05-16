@@ -27,7 +27,7 @@ public static class HangfireExtension
         CleanJobs();
 
         BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
-        BackgroundJob.Schedule<IHangfireJobsService>(n => n.AllStationsStatusJob(), TimeSpan.FromMinutes(2));
+        BackgroundJob.Schedule<IHangfireJobsService>(n => n.AllStationsStatusJob(), TimeSpan.FromMinutes(1));
         return app;
     }
         

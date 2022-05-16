@@ -1,4 +1,4 @@
-﻿using Application.Mediator;
+﻿using Application.Mediator.Command;
 using MediatR;
 
 namespace HandlersQlApp.Mediator;
