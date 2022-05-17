@@ -14,8 +14,8 @@ public class Station : Aggregate, IEntities
     public string CityName { get; private set; }
     public string DistrictName { get; private set; }
     public string ProvinceName { get; private set; }
-    
-    private readonly List<AirTest> _tests;
+
+    private readonly List<AirTest> _tests = new();
     public IReadOnlyCollection<AirTest> Tests => _tests;
 
     public static Station Create(
@@ -106,6 +106,7 @@ public class Station : Aggregate, IEntities
             this));
         
         AddEvent(new AddTestEvent(
+            Id,
             Identifier,
             calcDate,
             downloadDate,

@@ -20,6 +20,7 @@ public class AddTestEvent : IEvent
     public string O3IndexName { get; }
     
     public AddTestEvent(
+        Guid stationId,
         long stationIdentifier, 
         DateTime calcDate, 
         DateTime downloadDate, 
@@ -34,6 +35,7 @@ public class AddTestEvent : IEvent
         int o3IndexLevel, 
         string o3IndexName)
     {
+        Id = stationId;
         StationIdentifier = stationIdentifier;
         CalcDate = calcDate;
         DownloadDate = downloadDate;

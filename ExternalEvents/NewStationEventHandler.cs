@@ -17,6 +17,8 @@ public class NewStationEventHandler : INotificationHandler<NewStationExtEvent>
 
     public async Task Handle(NewStationExtEvent notification, CancellationToken cancellationToken)
     {
+        if (notification.NewStation is null)
+            return;
 
         var repo = _scopeFactory
             .CreateScope()

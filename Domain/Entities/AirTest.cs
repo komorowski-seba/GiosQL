@@ -72,28 +72,6 @@ namespace Domain.Entities
                 throw new ArgumentNullException(nameof(calcDate));
             if (downloadDate == null)
                 throw new ArgumentNullException(nameof(downloadDate));
-            if (so2IndexLevel < 0)
-                throw new AggregateException($"{nameof(so2IndexLevel)} can't be less than zero");
-            if (string.IsNullOrEmpty(so2IndexName))
-                throw new ArgumentNullException(nameof(so2IndexName));
-            if (no2IndexLevel < 0)
-                throw new AggregateException($"{nameof(no2IndexLevel)} can't be less than zero");
-            if (string.IsNullOrEmpty(no2IndexName))
-                throw new ArgumentNullException(nameof(no2IndexName));
-            if (pm10IndexLevel < 0)
-                throw new AggregateException($"{nameof(pm10IndexLevel)} can't be less than zero");
-            if (string.IsNullOrEmpty(pm10IndexName))
-                throw new ArgumentNullException(nameof(pm10IndexName));
-            if (pm25IndexLevel < 0)
-                throw new AggregateException($"{nameof(pm25IndexLevel)} can't be less than zero");
-            if (string.IsNullOrEmpty(pm25IndexName))
-                throw new ArgumentNullException(nameof(pm25IndexName));
-            if (o3IndexLevel < 0)
-                throw new AggregateException($"{nameof(o3IndexLevel)} can't be less than zero");
-            if (string.IsNullOrEmpty(o3IndexName))
-                throw new ArgumentNullException(nameof(o3IndexName));
-            if (station == null)
-                throw new ArgumentNullException(nameof(station));
 
             Id = Guid.NewGuid();
             CalcDate = calcDate;
@@ -109,7 +87,7 @@ namespace Domain.Entities
             O3IndexLevel = o3IndexLevel;
             O3IndexName = o3IndexName;
             
-            Station = station;
+            Station = station ?? throw new ArgumentNullException(nameof(station));
             StationId = station.Id;
             StationIdentifier = station.Identifier;
         }

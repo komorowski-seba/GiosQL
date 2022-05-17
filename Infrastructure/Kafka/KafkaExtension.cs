@@ -1,8 +1,7 @@
-﻿using Application.ExternalEvents;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Confluent.Kafka;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Kafka;
 
@@ -24,8 +23,7 @@ public static class KafkaExtensions
         IConfiguration configuration)
     {
         services.AddConsumerConfig(configuration);
-        services.AddHostedService<KafkaExternalEventConsumerService<NewStationExtEvent>>();
-        services.AddHostedService<KafkaExternalEventConsumerService<StationStatusExtEvent>>();
+        services.AddHostedService<KafkaExternalEventConsumerService<IExternalEvent>>();
         return services;
     }
 
@@ -37,6 +35,7 @@ public static class KafkaExtensions
         {
             var result = new ConsumerConfig
             {
+                // todo get form config
                 BootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServer"),
                 GroupId = configuration.GetValue<string>("Kafka:GroupId"),
                 AutoOffsetReset = AutoOffsetReset.Earliest,
