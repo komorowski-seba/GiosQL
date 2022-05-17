@@ -37,12 +37,12 @@ public class NewStationEventHandler : INotificationHandler<NewStationExtEvent>
         {
             find
                 .SetAddressStreet(notification.NewStation?.AddressStreet ?? string.Empty)
-                .SetCityName(notification.NewStation.City?.Name ?? string.Empty)
-                .SetDistrictName(notification.NewStation.City?.Commune?.DistrictName ?? string.Empty)
-                .SetGegrLat(notification.NewStation.GegrLat)
-                .SetGegrLon(notification.NewStation.GegrLon)
-                .SetProvinceName(notification.NewStation.City?.Commune?.ProvinceName ?? string.Empty)
-                .SetStationName(notification.NewStation.StationName);
+                .SetCityName(notification.NewStation?.City?.Name ?? string.Empty)
+                .SetDistrictName(notification.NewStation?.City?.Commune?.DistrictName ?? string.Empty)
+                .SetGegrLat(notification.NewStation?.GegrLat ?? string.Empty)
+                .SetGegrLon(notification.NewStation?.GegrLon ?? string.Empty)
+                .SetProvinceName(notification.NewStation?.City?.Commune?.ProvinceName ?? string.Empty)
+                .SetStationName(notification.NewStation?.StationName ?? string.Empty);
         }
 
         await repo.SaveChangesAsync(cancellationToken);

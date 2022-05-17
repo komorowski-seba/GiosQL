@@ -35,7 +35,6 @@ public static class KafkaExtensions
         {
             var result = new ConsumerConfig
             {
-                // todo get form config
                 BootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServer"),
                 GroupId = configuration.GetValue<string>("Kafka:GroupId"),
                 AutoOffsetReset = AutoOffsetReset.Earliest,
