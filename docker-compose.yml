@@ -1,6 +1,26 @@
 version: '2'
+
 services:
-  
+  simplelastics:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.1.0
+    container_name: simplelastics
+    hostname: simplelastics
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - http.port=9200
+      - http.cors.allow-origin=*
+      - http.cors.allow-credentials=false
+      - http.cors.enabled=true
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - network.publish_host=localhost
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - http.max_content_length=10MB
+  # http://localhost:9200/
+
   zookeeper:
     image: wurstmeister/zookeeper
     hostname: zookeeper
@@ -78,3 +98,8 @@ services:
       - "5433:5432"
     # Username=postgres
     # password=postgres
+    
+# docker network create -d bridge elastic
+networks:
+  elastic:
+    driver: bridge
