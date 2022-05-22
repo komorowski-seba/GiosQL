@@ -1,63 +1,20 @@
-﻿namespace Infrastructure.Elastic;
+﻿using Application.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Nest;
+
+namespace Infrastructure.Elastic;
 
 public static class ElasticExtensions
 {
     public static IServiceCollection AddElasticServices(this IServiceCollection services, IConfiguration configuration)
     {
         var settings = new ConnectionSettings(new Uri(configuration["Elasticsearch:Url"]))
-            .DefaultMappingFor<AirTestElasticModel>(n => 
-                n.IndexName(configuration["Elasticsearch:Index"]));
+            .DefaultMappingFor<AirTestElasticModel>(n => n.IndexName(configuration["Elasticsearch:Index"]));
         var client = new ElasticClient(settings);
             
         services.AddSingleton<IElasticClient>(client);            
-        services.AddScoped<IAirTestElasticService, AirTestElasticService>();
+        services.AddScoped<ISearchService, ElasticSearchService>();
         return services;
     }
 }
-
-
-// public class AirTestElasticService : IAirTestElasticService
-// {
-//     private readonly IElasticClient _elasticClient;
-//     private readonly ILogger<AirTestElasticService> _logger;
-//     private readonly IAppsettingsConfigServices _appsettingsConfig;
-//
-//     public AirTestElasticService(IElasticClient elasticClient, 
-//         ILogger<AirTestElasticService> logger, 
-//         IAppsettingsConfigServices appsettingsConfig)
-//     {
-//         _elasticClient = elasticClient;
-//         _logger = logger;
-//         _appsettingsConfig = appsettingsConfig;
-//     }
-//
-//     public async Task<List<AirTestElasticModel>> SearchTests(string query)
-//     {
-//         var result = _elasticClient
-//             .Search<AirTestElasticModel>(n => n
-//                 .Query(m => m
-//                     .Match(c => c
-//                         .Field(f => f.CityName)
-//                         .Query(query))));
-//
-//         if (!result.IsValid)
-//         {
-//             _logger.LogWarning("[{nameof}] result error: {result}", nameof(SearchTests), result.DebugInformation);
-//             return new List<AirTestElasticModel>();
-//         }
-//
-//         return result.Documents.ToList();
-//     }
-//
-//     public void AddDocument(AirTestElasticModel testData)
-//     {
-//         var result = _elasticClient.DocumentExists<AirTestElasticModel>(testData.Id, 
-//             d => d.Index(_appsettingsConfig.Elastic.Index));
-//
-//         if (result.Exists)
-//             _elasticClient.UpdateAsync<AirTestElasticModel>(testData.Id, 
-//                 d => d.Index(_appsettingsConfig.Elastic.Index).Doc(testData));
-//         else
-//             _elasticClient.Index(new IndexRequest<AirTestElasticModel>(testData, IndexName.From<AirTestElasticModel>(), testData.Id));
-//     }
-// }
