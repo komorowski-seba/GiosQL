@@ -1,6 +1,7 @@
 using Application;
 using ExternalEvents;
 using HandlersQlApp;
+using Infrastructure.Elastic;
 using Infrastructure.Kafka;
 using Infrastructure.Marten;
 using Infrastructure.Persistence;
@@ -20,6 +21,7 @@ services.AddInternalEventsServices();
 services.AddSwaggerGen();
 services.AddQLServices();
 services.AddMartenServices(builder.Configuration);
+services.AddElasticServices(builder.Configuration);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
