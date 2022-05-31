@@ -1,5 +1,4 @@
-﻿using Application.Interfaces;
-using Infrastructure.QL.Queries;
+﻿using Infrastructure.QL.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.QL.Schema;
