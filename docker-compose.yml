@@ -1,19 +1,18 @@
 version: '2'
 
 services:
-#  elasticsearch:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4
-#    container_name: elastic
-#    ports:
-#      - "9200:9200"
-#    environment:
-#      - "discovery.type=single-node"
-#      - "xpack.security.enabled=false"  
   
-  simplelastics:
+  elastic_hq:
+    image: elastichq/elasticsearch-hq
+    container_name: elastic_hq
+    hostname: elastic_hq
+    ports:
+      - 5000:5000
+  
+  elastics_s:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.1.0
-    container_name: simplelastics
-    hostname: simplelastics
+    container_name: elastics_s
+    hostname: elastics_s
     ports:
       - "9200:9200"
       - "9300:9300"
