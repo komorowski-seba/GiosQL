@@ -14,14 +14,14 @@ services.AddApplicationServices();
 services.AddAppQLMediatorServices();
 services.AddExternalEventsServices();
 services.AddInternalEventsServices();
-services.AddSwaggerGen();
+// services.AddSwaggerGen();
 services.AddWebQlInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // app.UseSwagger();
+    // app.UseSwaggerUI();
 }
 app.UsePersistenceConfiguration();
 app.UseHttpsRedirection();

@@ -2,32 +2,40 @@ version: '2'
 
 services:
   
-  elastic_hq:
-    image: elastichq/elasticsearch-hq
-    container_name: elastic_hq
-    hostname: elastic_hq
-    ports:
-      - 5000:5000
+#  elastic_hq:
+#    image: elastichq/elasticsearch-hq
+#    container_name: elastic_hq
+#    hostname: elastic_hq
+#    ports:
+#      - 5000:5000
   
-  elastics_s:
+  elastic_search_2:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.1.0
-    container_name: elastics_s
-    hostname: elastics_s
+    container_name: elastic_search_2
+    hostname: elastic_search_2
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
-      - http.port=9200
-      - http.cors.allow-origin=*
-      - http.cors.allow-credentials=false
-      - http.cors.enabled=true
-      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
-      - network.publish_host=localhost
-      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=true
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - http.max_content_length=10MB
-  # http://localhost:9200/
+    networks:
+      - elastic
+   
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    ports:
+      - 5601:5601
+    depends_on:
+      - elastic_search_2
+    environment:
+      - ELASTICSEARCH_URL=http://localhost:9200
+    networks:
+      - elastic   
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -111,3 +119,6 @@ services:
 networks:
   elastic:
     driver: bridge
+    
+volumes:
+  elasticsearch-data:
