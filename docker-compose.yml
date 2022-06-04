@@ -2,40 +2,41 @@ version: '2'
 
 services:
   
-#  elastic_hq:
-#    image: elastichq/elasticsearch-hq
-#    container_name: elastic_hq
-#    hostname: elastic_hq
-#    ports:
-#      - 5000:5000
-  
   elastic_search_2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.1.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
     container_name: elastic_search_2
     hostname: elastic_search_2
     ports:
       - 9200:9200
-    volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+      - 9300:9300
+#    volumes:
+#      - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
       - xpack.monitoring.enabled=true
       - xpack.watcher.enabled=false
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
     networks:
-      - elastic
+      - elastic_kibana
    
   kibana:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:7.9.2
     ports:
       - 5601:5601
-    depends_on:
-      - elastic_search_2
+#    depends_on:
+#      - elastic_search_2
     environment:
-      - ELASTICSEARCH_URL=http://localhost:9200
+      - "ELASTICSEARCH_URL=http://elastic_kibana:9200"
+      - "XPACK_GRAPH_ENABLED=false"
+      - "XPACK_ML_ENABLED=false"
+      - "XPACK_REPORTING_ENABLED=false"
+      - "XPACK_SECURITY_ENABLED=false"
+      - "XPACK_WATCHER_ENABLED=false"
     networks:
-      - elastic   
+      - elastic_kibana
+    links:
+      - elastic_search_2:elasticsearch
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -117,7 +118,7 @@ services:
     
 # docker network create -d bridge elastic
 networks:
-  elastic:
+  elastic_kibana:
     driver: bridge
     
 volumes:
