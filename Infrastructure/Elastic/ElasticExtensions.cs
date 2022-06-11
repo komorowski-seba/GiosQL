@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Nest;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
@@ -21,28 +23,56 @@ public static class ElasticExtensions
         return services;
     }
 
-    public static void SetConfigureLogging(IConfiguration configuration)
+    public static IHostBuilder UseConfigSeriLog(this IHostBuilder builder, IConfiguration config)
     {
-        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        // var configuration = new ConfigurationBuilder()
-        //     .AddJsonFile(
-        //         "appsettings.json", 
-        //         optional: false, 
-        //         reloadOnChange: true)
-        //     .AddJsonFile(
-        //         $"appsettings.{environment}.json",
-        //         optional: true)
-        //     .Build();
+        var environment = Environment
+            .GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?
+            .ToLower()
+            .Replace(".", "-") ?? throw new ApplicationException("[Error no environment]");
+        var name = Assembly
+            .GetExecutingAssembly()
+            .GetName()
+            .Name?
+            .ToLower()
+            .Replace(".", "-") ?? throw new ApplicationException("[Error no assembly name]");
+        builder.UseSerilog((context, configuration) =>
+        {
+            configuration
+                .WriteTo.Console()
+                .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .WriteTo.Elasticsearch(
+                    new ElasticsearchSinkOptions(new Uri(config["Elasticsearch:Url"]))
+                    {
+                        IndexFormat = $"{name}-{environment}-{DateTime.UtcNow:yyyy-MM}",
+                        AutoRegisterTemplate = true,
+                        NumberOfShards = 2,
+                        NumberOfReplicas = 1
+                    })
+                .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+                .ReadFrom.Configuration(context.Configuration);
+        });
+        return builder;
         
-        Log.Logger = new LoggerConfiguration()
-            .Enrich.FromLogContext()
-            .Enrich.WithMachineName()
-            .WriteTo.Debug()
-            .WriteTo.Console()
-            .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
-            .Enrich.WithProperty("Environment", environment)
-            .ReadFrom.Configuration(configuration)
-            .CreateLogger();
+        // // var configuration = new ConfigurationBuilder()
+        // //     .AddJsonFile(
+        // //         "appsettings.json", 
+        // //         optional: false, 
+        // //         reloadOnChange: true)
+        // //     .AddJsonFile(
+        // //         $"appsettings.{environment}.json",
+        // //         optional: true)
+        // //     .Build();
+        //
+        // Log.Logger = new LoggerConfiguration()
+        //     .Enrich.FromLogContext()
+        //     .Enrich.WithMachineName()
+        //     .WriteTo.Debug()
+        //     .WriteTo.Console()
+        //     .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
+        //     .Enrich.WithProperty("Environment", environment)
+        //     .ReadFrom.Configuration(configuration)
+        //     .CreateLogger();
     }
     
     private static ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment)
@@ -50,7 +80,7 @@ public static class ElasticExtensions
         return new ElasticsearchSinkOptions(new Uri(configuration["Elasticsearch:Url"]))
         {
             AutoRegisterTemplate = true,
-            IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
+            IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name?.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
         };
     }
 }

@@ -10,7 +10,8 @@ namespace Infrastructure;
 
 public static class InfrastructureWebQlExtension
 {
-    public static IServiceCollection AddWebQlInfrastructureServices(this IServiceCollection services,
+    public static IServiceCollection AddWebQlInfrastructureServices(
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         services.AddPersistenceServices(configuration);
