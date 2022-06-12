@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Confluent.Kafka;
 using MediatR;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Infrastructure.Kafka;
@@ -13,11 +14,16 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
 {
     private readonly ConsumerConfig _consumerConfig;
     private readonly IMediator _mediator;
+    private readonly ILogger<KafkaExternalEventConsumerService<T>> _logger;
 
-    public KafkaExternalEventConsumerService(ConsumerConfig consumerConfig, IMediator mediator)
+    public KafkaExternalEventConsumerService(
+        ConsumerConfig consumerConfig, 
+        IMediator mediator, 
+        ILogger<KafkaExternalEventConsumerService<T>> logger)
     {
         _consumerConfig = consumerConfig;
         _mediator = mediator;
+        _logger = logger;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -35,7 +41,9 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
             .GetTypes()
             .Where(n => n.GetInterfaces().Any(m => m == typeof(T)))
             .ToList();
-            
+        
+        _logger.LogInformation(" ----- >>>> kafka start");
+        
         while (!stoppingToken.IsCancellationRequested)
         {
             try
