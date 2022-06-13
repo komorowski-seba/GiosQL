@@ -10,7 +10,7 @@ using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseConfigSeriLog(builder.Configuration);
+builder.Host.UseConfigSeriLog(builder.Configuration, builder.Environment.EnvironmentName);
 
 var services = builder.Services;
 services.AddControllers();
