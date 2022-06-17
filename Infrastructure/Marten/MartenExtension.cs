@@ -20,7 +20,6 @@ public static class MartenExtension
             n.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
             n.DatabaseSchemaName = "Gios_db";
             n.Events.DatabaseSchemaName = "Gios_events";
-            // n.Projections.AsyncMode = 
             n.Projections.Add<StationEventsProjection>();
         });
         services.AddScoped<IEventsStoreDb, MartensEventsStoreDb>();

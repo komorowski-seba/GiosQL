@@ -1,10 +1,4 @@
-﻿using Application.ExternalEvents;
-using Application.Mapping;
-using Domain.Common.Interfaces;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace ExternalEvents;
+﻿namespace ApplicationQlApp.ExternalEvents;
 
 public class NewStationEventHandler : INotificationHandler<NewStationExtEvent>
 {

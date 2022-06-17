@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebQlApi", "WebQlApi\WebQlA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalEvents", "InternalEvents\InternalEvents.csproj", "{CF01A0DF-CB95-4401-9A01-9737277EDA81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationQlApp", "ApplicationQlApp\ApplicationQlApp.csproj", "{E4C8C33F-6CAB-42CF-B864-CFDA715D2D40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationHangfire", "ApplicationHangfire\ApplicationHangfire.csproj", "{A86BC6AE-8D94-4835-B633-E49F11747BDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +72,14 @@ Global
 		{CF01A0DF-CB95-4401-9A01-9737277EDA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF01A0DF-CB95-4401-9A01-9737277EDA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF01A0DF-CB95-4401-9A01-9737277EDA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4C8C33F-6CAB-42CF-B864-CFDA715D2D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C8C33F-6CAB-42CF-B864-CFDA715D2D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4C8C33F-6CAB-42CF-B864-CFDA715D2D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4C8C33F-6CAB-42CF-B864-CFDA715D2D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86BC6AE-8D94-4835-B633-E49F11747BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86BC6AE-8D94-4835-B633-E49F11747BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86BC6AE-8D94-4835-B633-E49F11747BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86BC6AE-8D94-4835-B633-E49F11747BDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{71068C3A-8D3F-46F4-8B57-FA77361B9C6D} = {740EDA1E-5BC6-4D8E-A997-4670AAD23342}

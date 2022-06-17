@@ -1,13 +1,11 @@
 using Application;
-using ExternalEvents;
+using ApplicationQlApp.ExternalEvents;
 using HandlersQlApp;
 using Infrastructure;
 using Infrastructure.Elastic;
 using Infrastructure.Persistence;
 using Infrastructure.QL;
 using InternalEvents;
-using Serilog;
-using Serilog.Sinks.Elasticsearch;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseConfigSeriLog(builder.Configuration, builder.Environment.EnvironmentName);

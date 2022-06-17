@@ -1,10 +1,4 @@
-﻿using Application.ExternalEvents;
-using Domain.Common.Interfaces;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-namespace ExternalEvents;
+﻿namespace ApplicationQlApp.ExternalEvents;
 
 public class StationStatusEventHandler : INotificationHandler<StationStatusExtEvent>
 {

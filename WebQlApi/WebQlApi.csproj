@@ -16,6 +16,7 @@
     </ItemGroup>
     
     <ItemGroup>
+        <ProjectReference Include="..\ApplicationQlApp\ApplicationQlApp.csproj" />
         <ProjectReference Include="..\HandlersQlApp\HandlersQlApp.csproj" />
         <ProjectReference Include="..\ExternalEvents\ExternalEvents.csproj" />
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace ExternalEvents;
+namespace ApplicationQlApp.ExternalEvents;
 
 public static class ExternalEventsExtension
 {
