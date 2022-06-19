@@ -2,11 +2,11 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HandlersHangfireApp;
+namespace ApplicationHangfire;
 
-public static class AppHangfireMediatorExtension
+public static class ApplicationHangfireExtension
 {
-    public static IServiceCollection AddHangfireMediatorServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationHangfireServices(this IServiceCollection services)
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
         return services;

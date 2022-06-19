@@ -1,7 +1,7 @@
 ﻿using Application.Mediator.Command;
 using MediatR;
 
-namespace HandlersQlApp.Mediator;
+namespace ApplicationQlApp.Mediator;
 
 public class AddStationStateCommandHandler : INotificationHandler<AddStationStateCommand>
 {

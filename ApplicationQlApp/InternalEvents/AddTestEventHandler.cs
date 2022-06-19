@@ -1,7 +1,7 @@
 ﻿using Domain.Events;
 using MediatR;
 
-namespace InternalEvents.Events;
+namespace ApplicationQlApp.InternalEvents;
 
 public class AddTestEventHandler : INotificationHandler<AddTestEvent>
 {

@@ -1,11 +1,11 @@
 using Application;
 using ApplicationQlApp.ExternalEvents;
-using HandlersQlApp;
+using ApplicationQlApp.InternalEvents;
+using ApplicationQlApp.Mediator;
 using Infrastructure;
 using Infrastructure.Elastic;
 using Infrastructure.Persistence;
 using Infrastructure.QL;
-using InternalEvents;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseConfigSeriLog(builder.Configuration, builder.Environment.EnvironmentName);

@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ApplicationHangfire\ApplicationHangfire.csproj" />
       <ProjectReference Include="..\HandlersHangfireApp\HandlersHangfireApp.csproj" />
       <ProjectReference Include="..\Application\Application.csproj" />
       <ProjectReference Include="..\HangfireInfrastructure\HangfireInfrastructure.csproj" />

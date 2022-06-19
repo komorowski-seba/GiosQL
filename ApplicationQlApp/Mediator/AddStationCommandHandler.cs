@@ -2,7 +2,7 @@
 using Domain.Common.Interfaces;
 using MediatR;
 
-namespace HandlersQlApp.Mediator;
+namespace ApplicationQlApp.Mediator;
 
 public class AddStationCommandHandler : INotificationHandler<AddStationCommand>
 {

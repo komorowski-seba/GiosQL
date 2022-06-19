@@ -2,13 +2,13 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InternalEvents;
+namespace ApplicationQlApp.InternalEvents;
 
 public static class InternalEventsExtension
 {
     public static IServiceCollection AddInternalEventsServices(this IServiceCollection services)
     {
-        services.AddMediatR(Assembly.GetExecutingAssembly());
+        ServiceCollectionExtensions.AddMediatR((IServiceCollection)services, Assembly.GetExecutingAssembly());
         return services;
     }
 }

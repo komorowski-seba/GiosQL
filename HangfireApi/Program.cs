@@ -1,4 +1,4 @@
-using HandlersHangfireApp;
+using ApplicationHangfire;
 using HangfireInfrastructure;
 using Infrastructure;
 
@@ -7,7 +7,7 @@ var services = builder.Services;
 services.AddEndpointsApiExplorer();
 services.AddHangfireServices(builder.Configuration);
 services.AddHangfireInfrastructureServices(builder.Configuration);
-services.AddHangfireMediatorServices();
+services.AddApplicationHangfireServices();
 
 var app = builder.Build();
 app.UseHttpsRedirection();

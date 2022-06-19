@@ -3,7 +3,7 @@ using Application.Interfaces;
 using Application.Mediator.Command;
 using MediatR;
 
-namespace HandlersHangfireApp.Mediator;
+namespace ApplicationHangfire.Mediator;
 
 public class CheckStationStatusHandler : INotificationHandler<CheckStationStatusCommand>
 {

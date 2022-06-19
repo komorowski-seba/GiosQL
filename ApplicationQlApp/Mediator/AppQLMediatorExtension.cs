@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HandlersQlApp;
+namespace ApplicationQlApp.Mediator;
 
 public static class AppQLMediatorExtension
 {
