@@ -6,15 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HangfireInfrastructure;
+namespace Infrastructure.Hangfire;
 
 public static class HangfireExtension
 {
     public static IServiceCollection AddHangfireServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services
-            .AddHangfire(
+        services.AddHangfire(
                 globalConfiguration => globalConfiguration.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection")));
         services.AddHangfireServer();
         services.AddScoped<IHangfireJobsService, HangfireJobsService>();

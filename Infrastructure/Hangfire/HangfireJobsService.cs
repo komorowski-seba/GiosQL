@@ -3,7 +3,7 @@ using Application.Mediator.Command;
 using Hangfire;
 using MediatR;
 
-namespace HangfireInfrastructure;
+namespace Infrastructure.Hangfire;
 
 public class HangfireJobsService : IHangfireJobsService
 {

@@ -1,6 +1,6 @@
 using ApplicationHangfire;
-using HangfireInfrastructure;
 using Infrastructure;
+using Infrastructure.Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;

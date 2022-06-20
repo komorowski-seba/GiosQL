@@ -37,6 +37,12 @@
         <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.4.1" />
         <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
 
+        <PackageReference Include="Hangfire" Version="1.7.19" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
+        <PackageReference Include="Hangfire.Autofac.Core" Version="1.0.1" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+        <PackageReference Include="Hangfire.Dashboard.Authorization" Version="1.7.19" />
+        <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
     </ItemGroup>
 
     <ItemGroup>

@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireApi", "HangfireApi\HangfireApi.csproj", "{71068C3A-8D3F-46F4-8B57-FA77361B9C6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireInfrastructure", "HangfireInfrastructure\HangfireInfrastructure.csproj", "{EA0285AB-364B-4B34-9B41-ECEAA59AD2B5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebQlApi", "WebQlApi\WebQlApi.csproj", "{844EE65A-3CFA-4002-8695-09220BE7D89C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationQlApp", "ApplicationQlApp\ApplicationQlApp.csproj", "{E4C8C33F-6CAB-42CF-B864-CFDA715D2D40}"
@@ -40,10 +38,6 @@ Global
 		{71068C3A-8D3F-46F4-8B57-FA77361B9C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71068C3A-8D3F-46F4-8B57-FA77361B9C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71068C3A-8D3F-46F4-8B57-FA77361B9C6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA0285AB-364B-4B34-9B41-ECEAA59AD2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA0285AB-364B-4B34-9B41-ECEAA59AD2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA0285AB-364B-4B34-9B41-ECEAA59AD2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA0285AB-364B-4B34-9B41-ECEAA59AD2B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{844EE65A-3CFA-4002-8695-09220BE7D89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{844EE65A-3CFA-4002-8695-09220BE7D89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{844EE65A-3CFA-4002-8695-09220BE7D89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
