@@ -1,17 +1,16 @@
 using ApplicationHangfire;
 using Infrastructure;
-using Infrastructure.Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+
 services.AddEndpointsApiExplorer();
-services.AddHangfireServices(builder.Configuration);
 services.AddHangfireInfrastructureServices(builder.Configuration);
 services.AddApplicationHangfireServices();
 
 var app = builder.Build();
 app.UseHttpsRedirection();
-app.UseHangfireConfiguration();
+app.UseHangfireInfrastructure();
 
 app.MapGet("/", (HttpContext context) 
     => $" Hangfire - https://{context.Response.HttpContext.Request.Host.Host}:{context.Response.HttpContext.Request.Host.Port}/Hangfire"

@@ -10,11 +10,11 @@ namespace Infrastructure.Hangfire;
 
 public static class HangfireExtension
 {
-    public static IServiceCollection AddHangfireServices(this IServiceCollection services,
+    public static IServiceCollection AddHangfireServices(
+        this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddHangfire(
-                globalConfiguration => globalConfiguration.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection")));
+        services.AddHangfire(gc => gc.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection")));
         services.AddHangfireServer();
         services.AddScoped<IHangfireJobsService, HangfireJobsService>();
         return services;
@@ -25,8 +25,8 @@ public static class HangfireExtension
         app.UseHangfireDashboard("/hangfire", new DashboardOptions {Authorization = new [] { new AuthorizationFilter() }});
         CleanJobs();
 
-        BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
-        BackgroundJob.Schedule<IHangfireJobsService>(n => n.AllStationsStatusJob(), TimeSpan.FromMinutes(1));
+        // BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
+        // BackgroundJob.Schedule<IHangfireJobsService>(n => n.AllStationsStatusJob(), TimeSpan.FromMinutes(1));
         return app;
     }
         

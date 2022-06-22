@@ -29,7 +29,7 @@ public class RedisCacheService : ICacheService
         
         var stationSerialize = JsonConvert.SerializeObject(allStationCase);
         var stationToByte = Encoding.ASCII.GetBytes(stationSerialize);
-        await _distributedCache.SetAsync(VariableKey, stationToByte);
+        await _distributedCache.SetAsync(VariableKey, stationToByte, cancellationToken);
     }
 
     public async Task<List<StationCache>> GetAllStations(CancellationToken cancellationToken)
