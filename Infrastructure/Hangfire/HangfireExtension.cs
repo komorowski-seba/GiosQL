@@ -25,7 +25,7 @@ public static class HangfireExtension
         app.UseHangfireDashboard("/hangfire", new DashboardOptions {Authorization = new [] { new AuthorizationFilter() }});
         CleanJobs();
 
-        // BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
+        BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
         // BackgroundJob.Schedule<IHangfireJobsService>(n => n.AllStationsStatusJob(), TimeSpan.FromMinutes(1));
         return app;
     }
