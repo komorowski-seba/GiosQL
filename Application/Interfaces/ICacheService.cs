@@ -1,5 +1,5 @@
 ﻿using Application.Models.GiosStation;
-using Application.Models.Redis;
+using Application.Models.Cache;
 
 namespace Application.Interfaces;
 

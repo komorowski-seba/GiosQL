@@ -2,7 +2,7 @@
 using Application.Interfaces;
 using Application.Mapping;
 using Application.Models.GiosStation;
-using Application.Models.Redis;
+using Application.Models.Cache;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 

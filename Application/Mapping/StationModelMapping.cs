@@ -1,4 +1,4 @@
-﻿using Application.Models.Redis;
+﻿using Application.Models.Cache;
 using Domain.Common.Dto;
 using Domain.Entities;
 
