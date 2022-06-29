@@ -27,7 +27,7 @@ public class GiosService : IGiosService
         return Task.FromResult(stations);
     }
 
-    public async Task<IndexAirQuality?> GetStationAirQuality(long stationId)
+    public Task<IndexAirQuality?> GetStationAirQuality(long stationId)
     {
         var client = new RestClient($"https://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/{stationId}"); //($"{_appsettings.GiosStation.Quality}/{stationId}");
         var request = new RestRequest(Method.GET);
@@ -36,6 +36,6 @@ public class GiosService : IGiosService
             throw new HttpRequestException(response.ErrorException?.Message ?? string.Empty);
                  
         var result = JsonConvert.DeserializeObject<IndexAirQuality>(response.Content);
-        return result;
+        return Task.FromResult(result);
     }
 }

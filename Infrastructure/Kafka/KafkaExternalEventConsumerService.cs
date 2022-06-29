@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Text;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Confluent.Kafka;
 using MediatR;
 using Microsoft.Extensions.Hosting;
@@ -34,13 +32,7 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
     private void StartConsumer(CancellationToken stoppingToken)
     {
         using var consumer = new ConsumerBuilder<string, string>(_consumerConfig).Build();
-        consumer.Subscribe("simpletalk_topic");
-
-        var findTypes = Assembly
-            .Load(nameof(Application))
-            .GetTypes()
-            .Where(n => n.GetInterfaces().Any(m => m == typeof(T)))
-            .ToList();
+        consumer.Subscribe("simpletalk_topic"); // todo put to file
         
         _logger.LogInformation(" ----- >>>> kafka start");
         
@@ -50,12 +42,9 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
             {
                 var msg = consumer.Consume(stoppingToken);
                 // todo move to config 
-                var msgType = Encoding.UTF8.GetString(msg.Message.Headers.GetLastBytes("message-type"));
-                var findMsgType = findTypes.FirstOrDefault(n => n.Name.Equals(msgType));
-                if (findMsgType is null)
-                    continue;
+                // var msgType = Encoding.UTF8.GetString(msg.Message.Headers.GetLastBytes("message-type"));
 
-                var msgNotification = JsonConvert.DeserializeObject(msg.Message.Value, findMsgType);
+                var msgNotification = JsonConvert.DeserializeObject(msg.Message.Value, typeof(T));
                 if (msgNotification is not null)
                     _mediator.Publish(msgNotification, stoppingToken).GetAwaiter().GetResult();
             }
