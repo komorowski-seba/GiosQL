@@ -1,10 +1,9 @@
 ﻿using Application.Models.Cache;
-using Domain.Common.Dto;
 using Domain.Entities;
 
-namespace Application.Mapping;
+namespace Application.Extensions;
 
-public static class StationModelMapping
+public static class StationModelExtension
 {
     public static Station ToEntityStation(this Models.GiosStation.Station station)
     {
@@ -30,25 +29,6 @@ public static class StationModelMapping
             StationName = station.StationName,
             City = station.City?.Name ?? string.Empty,
             Province = station.City?.Commune?.ProvinceName ?? string.Empty 
-        };
-        return result;
-    }
-}
-
-public static class StationMaping
-{
-    public static StationDto ToStationDto(this Station station)
-    {
-        var result = new StationDto
-        {
-            Identifier = station.Identifier,
-            AddressStreet = station.AddressStreet,
-            DistrictName = station.DistrictName,
-            ProvinceName = station.ProvinceName,
-            StationName = station.StationName,
-            GegrLat = station.GegrLat,
-            GegrLon = station.GegrLon,
-            CityName = station.CityName
         };
         return result;
     }

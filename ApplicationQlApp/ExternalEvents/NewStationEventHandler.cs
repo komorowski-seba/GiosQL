@@ -1,5 +1,5 @@
-﻿using Application.ExternalEvents;
-using Application.Mapping;
+﻿using Application.Extensions;
+using Application.ExternalEvents;
 using Domain.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

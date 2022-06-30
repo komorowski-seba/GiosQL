@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.ExternalEvents;
+using Application.Interfaces;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +13,7 @@ public static class KafkaExtensions
         IConfiguration configuration)
     {
         services.AddConsumerConfig(configuration);
-        services.AddScoped(
-            typeof(IExternalEventService<>), 
-            typeof(KafkaExternalEventPushService<>));
+        services.AddScoped(typeof(IExternalEventService<>), typeof(KafkaExternalEventPushService<>));
         return services;
     }
 
@@ -23,7 +22,8 @@ public static class KafkaExtensions
         IConfiguration configuration)
     {
         services.AddConsumerConfig(configuration);
-        services.AddHostedService<KafkaExternalEventConsumerService<IExternalEvent>>();
+        services.AddHostedService<KafkaExternalEventConsumerService<NewStationExtEvent>>();
+        services.AddHostedService<KafkaExternalEventConsumerService<StationStatusExtEvent>>();
         return services;
     }
 

@@ -1,5 +1,5 @@
-﻿using Application.Interfaces;
-using Application.Mapping;
+﻿using Application.Extensions;
+using Application.Interfaces;
 using Domain.Common.Dto;
 using Domain.Common.Interfaces;
 
