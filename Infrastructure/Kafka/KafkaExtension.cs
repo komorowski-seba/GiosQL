@@ -27,21 +27,21 @@ public static class KafkaExtensions
         return services;
     }
 
-    private static IServiceCollection AddConsumerConfig(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddSingleton(serviceProvider =>
-        {
-            var result = new ConsumerConfig
-            {
-                BootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServer"),
-                GroupId = configuration.GetValue<string>("Kafka:GroupId"),
-                AutoOffsetReset = AutoOffsetReset.Earliest,
-                EnableAutoCommit = true
-            };
-            return result;
-        });
-        return services;
-    }
+    // private static IServiceCollection AddConsumerConfig(
+    //     this IServiceCollection services,
+    //     IConfiguration configuration)
+    // {
+    //     services.AddSingleton(serviceProvider =>
+    //     {
+    //         var result = new ConsumerConfig
+    //         {
+    //             BootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServer"),
+    //             GroupId = configuration.GetValue<string>("Kafka:GroupId"),
+    //             AutoOffsetReset = AutoOffsetReset.Earliest,
+    //             EnableAutoCommit = true
+    //         };
+    //         return result;
+    //     });
+    //     return services;
+    // }
 }
