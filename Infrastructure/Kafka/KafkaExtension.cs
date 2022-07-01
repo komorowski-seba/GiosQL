@@ -12,7 +12,7 @@ public static class KafkaExtensions
         this IServiceCollection services, 
         IConfiguration configuration)
     {
-        services.AddConsumerConfig(configuration);
+        // services.AddConsumerConfig(configuration);
         services.AddScoped(typeof(IExternalEventService<>), typeof(KafkaExternalEventPushService<>));
         return services;
     }
@@ -21,27 +21,21 @@ public static class KafkaExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddConsumerConfig(configuration);
+        // services.AddConsumerConfig(configuration);
         services.AddHostedService<KafkaExternalEventConsumerService<NewStationExtEvent>>();
         services.AddHostedService<KafkaExternalEventConsumerService<StationStatusExtEvent>>();
         return services;
     }
 
-    // private static IServiceCollection AddConsumerConfig(
-    //     this IServiceCollection services,
-    //     IConfiguration configuration)
-    // {
-    //     services.AddSingleton(serviceProvider =>
-    //     {
-    //         var result = new ConsumerConfig
-    //         {
-    //             BootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServer"),
-    //             GroupId = configuration.GetValue<string>("Kafka:GroupId"),
-    //             AutoOffsetReset = AutoOffsetReset.Earliest,
-    //             EnableAutoCommit = true
-    //         };
-    //         return result;
-    //     });
-    //     return services;
-    // }
+    public static ConsumerConfig CreateConsumerConfig(string groupId, string bottstrapServer)
+    {
+        var result = new ConsumerConfig
+        {
+            BootstrapServers = bottstrapServer,
+            GroupId = groupId,
+            AutoOffsetReset = AutoOffsetReset.Earliest,
+            EnableAutoCommit = true,
+        };
+        return result;
+    }
 }
