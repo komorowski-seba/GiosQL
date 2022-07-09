@@ -12,18 +12,15 @@ namespace Infrastructure.Kafka;
 public class KafkaExternalEventConsumerService<T> : BackgroundService
     where T: class, IExternalEvent
 {
-    // private readonly ConsumerConfig _consumerConfig;
     private readonly IMediator _mediator;
     private readonly ILogger<KafkaExternalEventConsumerService<T>> _logger;
     private readonly IConfiguration _configuration;
 
     public KafkaExternalEventConsumerService(
-        // ConsumerConfig consumerConfig, 
         IMediator mediator, 
         ILogger<KafkaExternalEventConsumerService<T>> logger, 
         IConfiguration configuration)
     {
-        // _consumerConfig = consumerConfig;
         _mediator = mediator;
         _logger = logger;
         _configuration = configuration;
@@ -36,9 +33,10 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
 
     private void StartConsumer(CancellationToken stoppingToken)
     {
-        var consumerConfig = KafkaExtensions.CreateConsumerConfig(
-            groupId: Guid.NewGuid().ToString(),
-            _configuration.GetSettingsKafkaBootstrapServer());
+        var consumerConfig = KafkaExtensions
+            .CreateConsumerConfig(
+                groupId: Guid.NewGuid().ToString(), // todo new group id
+                _configuration.GetSettingsKafkaBootstrapServer());
         
         using var consumer = new ConsumerBuilder<string, string>(consumerConfig).Build();
         consumer.Subscribe( _configuration.GetSettingsKafkaTopic());

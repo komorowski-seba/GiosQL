@@ -12,8 +12,9 @@ public static class KafkaExtensions
         this IServiceCollection services, 
         IConfiguration configuration)
     {
-        // services.AddConsumerConfig(configuration);
-        services.AddScoped(typeof(IExternalEventService<>), typeof(KafkaExternalEventPushService<>));
+        services.AddScoped(
+            typeof(IExternalEventService<>), 
+            typeof(KafkaExternalEventPushService<>));
         return services;
     }
 
@@ -21,7 +22,6 @@ public static class KafkaExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // services.AddConsumerConfig(configuration);
         services.AddHostedService<KafkaExternalEventConsumerService<NewStationExtEvent>>();
         services.AddHostedService<KafkaExternalEventConsumerService<StationStatusExtEvent>>();
         return services;
