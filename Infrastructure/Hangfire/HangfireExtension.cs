@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Extensions;
+using Application.Interfaces;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.Storage;
@@ -14,7 +15,7 @@ public static class HangfireExtension
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddHangfire(gc => gc.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection")));
+        services.AddHangfire(gc => gc.UseSqlServerStorage(configuration.GetSettingsDbConnectionHangfireConnection()));
         services.AddHangfireServer();
         services.AddScoped<IHangfireJobsService, HangfireJobsService>();
         return services;
@@ -25,7 +26,7 @@ public static class HangfireExtension
         app.UseHangfireDashboard("/hangfire", new DashboardOptions {Authorization = new [] { new AuthorizationFilter() }});
         CleanJobs();
 
-        BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
+        // BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );
         // BackgroundJob.Schedule<IHangfireJobsService>(n => n.AllStationsStatusJob(), TimeSpan.FromMinutes(1));
         return app;
     }
