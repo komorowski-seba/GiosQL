@@ -15,5 +15,5 @@ app.UseHttpsRedirection();
 app.UseHangfireInfrastructure();
 app.MapGet("/", (HttpContext context) 
     => $" Hangfire - https://{context.Response.HttpContext.Request.Host.Host}:{context.Response.HttpContext.Request.Host.Port}/Hangfire"
-    + $"\n Redis commander - http://localhost:8081/");
+    +  $"\n Redis commander - http://localhost:8081/");
 app.Run();

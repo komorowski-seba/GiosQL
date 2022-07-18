@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Extensions;
+using Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,8 +11,8 @@ public static class RedisExtension
     {
         services.AddDistributedRedisCache(option =>
         {
-            option.Configuration = configuration.GetValue<string>("Redis:Configuration");
-            option.InstanceName = configuration.GetValue<string>("Redis:InstanceName");
+            option.Configuration = configuration.GetSettingsRedisConfigurationHost();
+            option.InstanceName = configuration.GetSettingsRedisInstanceName(); 
         });
         services.AddScoped<ICacheService, RedisCacheService>();
         return services;

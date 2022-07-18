@@ -9,4 +9,10 @@ public static class KafkaSettingsExtension
 
     public static string GetSettingsKafkaTopic(this IConfiguration configuration)
         => configuration.GetValue<string>("Kafka:Topic");
+
+    public static string GetSettingsKafkaGroupId(this IConfiguration configuration)
+        => configuration.GetValue<string>("Kafka:GroupId");
+
+    public static string GetSettingsKafkaKey(this IConfiguration configuration)
+        => configuration.GetValue<string>("Kafka:Key");
 }

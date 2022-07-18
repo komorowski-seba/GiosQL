@@ -1,6 +1,8 @@
 ﻿using System.Text;
+using Application.Extensions;
 using Application.Interfaces;
 using Confluent.Kafka;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -11,37 +13,41 @@ public class KafkaExternalEventPushService<T> : IExternalEventService<T>, IDispo
 {
      private readonly Lazy<IProducer<string, string>> _producer;
      private readonly ILogger<KafkaExternalEventPushService<T>> _logger;
+     private readonly IConfiguration _configuration;
 
-     public KafkaExternalEventPushService(ConsumerConfig consumerConfig, ILogger<KafkaExternalEventPushService<T>> logger)
+     public KafkaExternalEventPushService(ILogger<KafkaExternalEventPushService<T>> logger, IConfiguration configuration)
      {
          _logger = logger;
-         _producer = new Lazy<IProducer<string, string>>(() => new ProducerBuilder<string, string>(consumerConfig).Build());
+         _configuration = configuration;
+         _producer = new Lazy<IProducer<string, string>>(
+             () => new ProducerBuilder<string, string>(KafkaExtensions.CreateConsumerConfig(
+                 _configuration.GetSettingsKafkaGroupId(),
+                 _configuration.GetSettingsKafkaBootstrapServer())).Build());
      }
 
      private async Task SendAsync(T msg)
      {
-         const string key = "KafkaProducerService";
          var serialisedMessage = JsonConvert.SerializeObject(msg);
          var messageType = msg.GetType().Name;
          try
          {
              var producedMessage = new Message<string, string>
              {
-                 Key = key,
+                 Key = _configuration.GetSettingsKafkaKey(),
                  Value = serialisedMessage,
                  Headers = new Headers {{"message-type", Encoding.UTF8.GetBytes(messageType)}}
              };
-             await _producer.Value.ProduceAsync("simpletalk_topic", producedMessage);
+             await _producer.Value.ProduceAsync(_configuration.GetSettingsKafkaTopic(), producedMessage);
              
              Console.WriteLine($" ##### >>> '{serialisedMessage}'");
          }
-         catch (Exception e)
+         catch (Exception)
          {
              _logger.LogWarning(
                  "I can't send a Message: '{Message}'; Type: '{Type}'; Key: '{Key}'",
                  serialisedMessage,
                  messageType,
-                 key); 
+                 _configuration.GetSettingsKafkaKey()); 
          }
      }
      

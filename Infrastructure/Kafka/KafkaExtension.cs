@@ -12,9 +12,7 @@ public static class KafkaExtensions
         this IServiceCollection services, 
         IConfiguration configuration)
     {
-        services.AddScoped(
-            typeof(IExternalEventService<>), 
-            typeof(KafkaExternalEventPushService<>));
+        services.AddScoped(typeof(IExternalEventService<>), typeof(KafkaExternalEventPushService<>));
         return services;
     }
 

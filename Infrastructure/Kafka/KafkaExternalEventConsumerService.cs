@@ -35,7 +35,7 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
     {
         var consumerConfig = KafkaExtensions
             .CreateConsumerConfig(
-                groupId: Guid.NewGuid().ToString(), // todo new group id
+                groupId: _configuration.GetSettingsKafkaGroupId(),
                 _configuration.GetSettingsKafkaBootstrapServer());
         
         using var consumer = new ConsumerBuilder<string, string>(consumerConfig).Build();

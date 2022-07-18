@@ -23,7 +23,9 @@ public static class HangfireExtension
     
     public static IApplicationBuilder UseHangfireConfiguration(this IApplicationBuilder app)
     {
-        app.UseHangfireDashboard("/hangfire", new DashboardOptions {Authorization = new [] { new AuthorizationFilter() }});
+        app.UseHangfireDashboard(
+            "/hangfire", 
+            new DashboardOptions {Authorization = new [] { new AuthorizationFilter() }});
         CleanJobs();
 
         // BackgroundJob.Enqueue<IHangfireJobsService>( n => n.AllStationJob() );

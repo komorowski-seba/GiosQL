@@ -10,7 +10,7 @@ namespace Infrastructure.Redis;
 
 public class RedisCacheService : ICacheService
 {
-    private const string VariableKey = "stations";
+    private const string VariableKey = "stations"; // todo extension conf
     private readonly IDistributedCache _distributedCache;
 
     public RedisCacheService(IDistributedCache distributedCache)
