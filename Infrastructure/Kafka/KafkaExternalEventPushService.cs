@@ -20,9 +20,12 @@ public class KafkaExternalEventPushService<T> : IExternalEventService<T>, IDispo
          _logger = logger;
          _configuration = configuration;
          _producer = new Lazy<IProducer<string, string>>(
-             () => new ProducerBuilder<string, string>(KafkaExtensions.CreateConsumerConfig(
-                 _configuration.GetSettingsKafkaGroupId(),
-                 _configuration.GetSettingsKafkaBootstrapServer())).Build());
+             () => new ProducerBuilder<string, string>(new ConsumerConfig
+             {
+                 BootstrapServers = _configuration.GetSettingsKafkaBootstrapServer(),
+                 AutoOffsetReset = AutoOffsetReset.Earliest,
+                 EnableAutoCommit = true,
+             }).Build());
      }
 
      private async Task SendAsync(T msg)

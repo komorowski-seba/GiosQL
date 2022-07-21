@@ -25,15 +25,15 @@ public static class KafkaExtensions
         return services;
     }
 
-    public static ConsumerConfig CreateConsumerConfig(string groupId, string bottstrapServer)
-    {
-        var result = new ConsumerConfig
-        {
-            BootstrapServers = bottstrapServer,
-            GroupId = groupId,
-            AutoOffsetReset = AutoOffsetReset.Earliest,
-            EnableAutoCommit = true,
-        };
-        return result;
-    }
+    // public static ConsumerConfig CreateConsumerConfig(string groupId, string bottstrapServer)
+    // {
+    //     var result = new ConsumerConfig
+    //     {
+    //         BootstrapServers = bottstrapServer,
+    //         GroupId = groupId,
+    //         AutoOffsetReset = AutoOffsetReset.Earliest,
+    //         EnableAutoCommit = true,
+    //     };
+    //     return result;
+    // }
 }

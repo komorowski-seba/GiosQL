@@ -9,4 +9,7 @@ public static class RedisSettingsExtension
 
     public static string GetSettingsRedisInstanceName(this IConfiguration configuration)
         => configuration.GetValue<string>("Redis:InstanceName");
+
+    public static string GetSettingsRedisVariableKey(this IConfiguration configuration)
+        => configuration.GetValue<string>("Redis:VariableKey");
 }

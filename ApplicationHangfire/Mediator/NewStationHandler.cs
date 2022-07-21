@@ -28,9 +28,9 @@ public class NewStationHandler : INotificationHandler<NewStationCommand>
             return;
 
         await _cacheService.CacheStations(allStations, cancellationToken);
-        foreach (var station in allStations)
-        {
-            await _externalEventService.Publish(new NewStationExtEvent {NewStation = station});
-        }
+        // foreach (var station in allStations)
+        // {
+        //     await _externalEventService.Publish(new NewStationExtEvent {NewStation = station});
+        // }
     }
 }
