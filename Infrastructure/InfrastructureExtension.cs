@@ -36,7 +36,7 @@ public static class InfrastructureExtension
         IConfiguration configuration)
     {
         services.AddPersistenceServices(configuration);
-        services.AddKafkaConsumerServices(configuration);
+        services.AddKafkaConsumerServices();
         services.AddQLServices();
         services.AddMartenServices(configuration);
         services.AddElasticServices(configuration);

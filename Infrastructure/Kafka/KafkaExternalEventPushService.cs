@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Application.Extensions;
+﻿using Application.Extensions;
 using Application.Interfaces;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +24,8 @@ public class KafkaExternalEventPushService<T> : IExternalEventService<T>, IDispo
                  BootstrapServers = _configuration.GetSettingsKafkaBootstrapServer(),
                  AutoOffsetReset = AutoOffsetReset.Earliest,
                  EnableAutoCommit = true,
-             }).Build());
+             })
+            .Build());
      }
 
      private async Task SendAsync(T msg)
@@ -38,19 +38,17 @@ public class KafkaExternalEventPushService<T> : IExternalEventService<T>, IDispo
              {
                  Key = _configuration.GetSettingsKafkaKey(),
                  Value = serialisedMessage,
-                 Headers = new Headers {{"message-type", Encoding.UTF8.GetBytes(messageType)}}
              };
              await _producer.Value.ProduceAsync(_configuration.GetSettingsKafkaTopic(), producedMessage);
-             
-             Console.WriteLine($" ##### >>> '{serialisedMessage}'");
          }
-         catch (Exception)
+         catch (Exception e)
          {
              _logger.LogWarning(
-                 "I can't send a Message: '{Message}'; Type: '{Type}'; Key: '{Key}'",
+                 "I can't send a Message: '{Message}'; Type: '{Type}'; Key: '{Key}'; Error: '{Ex}'",
                  serialisedMessage,
                  messageType,
-                 _configuration.GetSettingsKafkaKey()); 
+                 _configuration.GetSettingsKafkaKey(),
+                 e.Message); 
          }
      }
      

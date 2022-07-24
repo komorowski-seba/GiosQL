@@ -33,10 +33,13 @@ public class KafkaExternalEventConsumerService<T> : BackgroundService
 
     private void StartConsumer(CancellationToken stoppingToken)
     {
-        var consumerConfig = KafkaExtensions
-            .CreateConsumerConfig(
-                groupId: _configuration.GetSettingsKafkaGroupId(),
-                _configuration.GetSettingsKafkaBootstrapServer());
+        var consumerConfig = new ConsumerConfig
+        {
+            BootstrapServers = _configuration.GetSettingsKafkaBootstrapServer(),
+            AutoOffsetReset = AutoOffsetReset.Earliest,
+            EnableAutoCommit = true,
+            GroupId = Guid.NewGuid().ToString()
+        };
         
         using var consumer = new ConsumerBuilder<string, string>(consumerConfig).Build();
         consumer.Subscribe( _configuration.GetSettingsKafkaTopic());

@@ -1,6 +1,5 @@
 ﻿using Application.ExternalEvents;
 using Application.Interfaces;
-using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,24 +15,10 @@ public static class KafkaExtensions
         return services;
     }
 
-    public static IServiceCollection AddKafkaConsumerServices(
-        this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddKafkaConsumerServices(this IServiceCollection services)
     {
         services.AddHostedService<KafkaExternalEventConsumerService<NewStationExtEvent>>();
         services.AddHostedService<KafkaExternalEventConsumerService<StationStatusExtEvent>>();
         return services;
     }
-
-    // public static ConsumerConfig CreateConsumerConfig(string groupId, string bottstrapServer)
-    // {
-    //     var result = new ConsumerConfig
-    //     {
-    //         BootstrapServers = bottstrapServer,
-    //         GroupId = groupId,
-    //         AutoOffsetReset = AutoOffsetReset.Earliest,
-    //         EnableAutoCommit = true,
-    //     };
-    //     return result;
-    // }
 }
